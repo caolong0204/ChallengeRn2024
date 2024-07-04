@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-challengern2024-dev-ebefc-authRole",
+      "UnauthRoleArn": "arn:aws:iam::867984437835:role/amplify-challengern2024-dev-ebefc-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::867984437835:role/amplify-challengern2024-dev-ebefc-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-challengern2024-dev-ebefc-deployment",
+      "UnauthRoleName": "amplify-challengern2024-dev-ebefc-unauthRole",
+      "StackName": "amplify-challengern2024-dev-ebefc",
+      "StackId": "arn:aws:cloudformation:us-east-1:867984437835:stack/amplify-challengern2024-dev-ebefc/9a4cd460-39cd-11ef-bcdf-12d2c27b6741",
+      "AmplifyAppId": "d24xfx03fijqk9"
+    }
+  }
+}
