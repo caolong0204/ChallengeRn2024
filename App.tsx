@@ -1,118 +1,109 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
-  useColorScheme,
   View,
+  TextInput,
+  Pressable,
+  SafeAreaView,
 } from 'react-native';
+import {generateClient} from 'aws-amplify/api';
+import {createTodo} from './src/graphql/mutations';
+import {listTodos} from './src/graphql/queries';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Amplify} from 'aws-amplify';
+import amplifyconfig from './src/amplifyconfiguration.json';
+Amplify.configure(amplifyconfig);
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const initialState = {name: '', description: ''};
+const client = generateClient();
 
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
+  const [formState, setFormState] = useState(initialState);
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  function setInput(key, value) {
+    setFormState({...formState, [key]: value});
+  }
+
+  async function fetchTodos() {
+    try {
+      const todoData = await client.graphql({
+        query: listTodos,
+      });
+      const todos = todoData.data.listTodos.items;
+      setTodos(todos);
+    } catch (err) {
+      console.log('error fetching todos');
+    }
+  }
+
+  async function addTodo() {
+    try {
+      if (!formState.name || !formState.description) return;
+      const todo = {...formState};
+      setTodos([...todos, todo]);
+      setFormState(initialState);
+      await client.graphql({
+        query: createTodo,
+        variables: {
+          input: todo,
+        },
+      });
+    } catch (err) {
+      console.log('error creating todo:', err);
+    }
+  }
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
+        <TextInput
+          onChangeText={value => setInput('name', value)}
+          style={styles.input}
+          value={formState.name}
+          placeholder="Name"
+        />
+        <TextInput
+          onChangeText={value => setInput('description', value)}
+          style={styles.input}
+          value={formState.description}
+          placeholder="Description"
+        />
+        <Pressable onPress={addTodo} style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>Create todo</Text>
+        </Pressable>
+        {todos.map((todo, index) => (
+          <View key={todo.id ? todo.id : index} style={styles.todo}>
+            <Text style={styles.todoName}>{todo.name}</Text>
+            <Text style={styles.todoDescription}>{todo.description}</Text>
+          </View>
+        ))}
+      </View>
     </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
+
+const styles = StyleSheet.create({
+  container: {width: 400, flex: 1, padding: 20, alignSelf: 'center'},
+  todo: {marginBottom: 15},
+  input: {
+    backgroundColor: '#ddd',
+    marginBottom: 10,
+    padding: 8,
+    fontSize: 18,
+  },
+  todoName: {fontSize: 20, fontWeight: 'bold'},
+  buttonContainer: {
+    alignSelf: 'center',
+    backgroundColor: 'black',
+    paddingHorizontal: 8,
+  },
+  buttonText: {color: 'white', padding: 16, fontSize: 18},
+});
