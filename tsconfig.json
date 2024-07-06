@@ -3,9 +3,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*"],
-      "graphql/*": ["src/graphql/*"],
-      "native_modules/*": ["./native_modules/*"]
-    }
+      "*": ["*"],
+      "@": ["src/*"],
+      "@graphql/*": ["src/graphql/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"]
+    },
+    "resolveJsonModule": true
   }
 }
