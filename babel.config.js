@@ -4,10 +4,13 @@ module.exports = {
     [
       'module-resolver',
       {
+        root: '.',
+        extensions: ['.ios.js', '.android.js', '.js', '.ts', '.tsx', '.json'],
         alias: {
-          root: './src',
-          graphql: './src/graphql',
-          native_modules: './native_modules',
+          '@': './src',
+          '@graphql': './src/graphql',
+          '@components': './src/components',
+          '@utils': './src/utils',
         },
       },
     ],
