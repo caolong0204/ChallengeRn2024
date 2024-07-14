@@ -32,7 +32,7 @@ const Marketing = () => {
             </View>
             <View className="bg-white rounded-lg shadow-md p-4">
               <Text className="text-3xl font-bold mb-4 text-center">
-                iPhone 13 1213123
+                iPhone 13 sdfsdfdsfsdf
               </Text>
               <Text className="text-gray-700 text-center mb-4">
                 Experience the pinnacle with iPhone 13 Pro. Super Retina XDR
