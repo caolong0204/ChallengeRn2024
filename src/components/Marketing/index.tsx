@@ -35,7 +35,7 @@ const Marketing = () => {
                 iPhone 13 sdfsdfdsfsdf
               </Text>
               <Text className="text-gray-700 text-center mb-4">
-                Experience the pinnacle with iPhone 13 Pro. Super Retina XDR
+                Experience the pinnasfsdfsdfcle with iPhone 13 Pro. Super Retina XDR
                 display, A15 Bionic chip, and professional camera system.
               </Text>
               <View className="flex justify-center space-x-4">
