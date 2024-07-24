@@ -1,10 +1,10 @@
 import React from 'react';
 import {
   ScrollView,
+  StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  StyleSheet,
 } from 'react-native';
 
 const Marketing = () => {
@@ -43,25 +43,60 @@ const Marketing = () => {
 };
 
 const styles = StyleSheet.create({
-  spacing: { height: 30 },
-  mainContainer: {
-    flex: 1,
-    alignItems: 'center',
+  addToCartButton: { backgroundColor: '#38a169' },
+  buttonContainer: {
+    flexDirection: 'row',
     justifyContent: 'center',
-    minHeight: '100%',
-    backgroundColor: '#f3f4f6',
+    marginTop: 8,
+  },
+  buttonText: { color: '#fff', fontWeight: 'bold' },
+  buyButton: {
+    backgroundColor: '#007bff',
+    borderRadius: 8,
+    marginHorizontal: 4,
+    padding: 10,
+    paddingHorizontal: 20,
   },
   container: { padding: 16 },
   headerContainer: {
     backgroundColor: '#007bff',
+    borderRadius: 9999,
     padding: 16,
     width: '100%',
-    borderRadius: 9999,
   },
   headerText: {
+    color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    textAlign: 'center',
+  },
+  mainContainer: {
+    alignItems: 'center',
+    backgroundColor: '#f3f4f6',
+    flex: 1,
+    justifyContent: 'center',
+    minHeight: '100%',
+  },
+  productContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    elevation: 4,
+    marginBottom: 16,
+    padding: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+  },
+  productDescription: {
+    color: '#4a5568',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  productTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
     textAlign: 'center',
   },
   productsContainer: {
@@ -70,42 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginTop: 16,
   },
-  productContainer: {
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-    padding: 16,
-    marginBottom: 16,
-  },
-  productTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  productDescription: {
-    color: '#4a5568',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 8,
-  },
-  buyButton: {
-    backgroundColor: '#007bff',
-    borderRadius: 8,
-    padding: 10,
-    paddingHorizontal: 20,
-    marginHorizontal: 4,
-  },
-  addToCartButton: { backgroundColor: '#38a169' },
-  buttonText: { color: '#fff', fontWeight: 'bold' },
+  spacing: { height: 30 },
 });
 
 export default Marketing;
